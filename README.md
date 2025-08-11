@@ -1,4 +1,4 @@
-## Hi there 👋
+The page is available at https://memelandpl.github.io/Memelandpl/
 
 <!--
 **Memelandpl/Memelandpl** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
