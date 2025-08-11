@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>🧡 Memeland.PL 🧡</title>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;600;700&family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0f0f10;
+    --card:#fffdf7;
+    --accent:#ff7a2d; /* energia pomarańcz */
+    --accent-2:#ffb86b;
+    --muted:#7b6b6b;
+    --glass: rgba(255,255,255,0.06);
+    --radius:16px;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0;
+    font-family:'Rubik',system-ui,Segoe UI,Roboto,Arial;
+    background: linear-gradient(180deg,#0b0b0c 0%, #111111 100%);
+    color:#111;
+    -webkit-font-smoothing:antialiased;
+    -moz-osx-font-smoothing:grayscale;
+    min-height:100vh;
+  }
+  .wrap{max-width:1100px;margin:28px auto;padding:20px}
+  header{
+    display:flex;gap:16px;align-items:center;
+    background:linear-gradient(180deg,var(--card),#fff3ea);
+    padding:16px;border-radius:20px;
+    box-shadow:0 8px 30px rgba(0,0,0,0.35);
+    border:1px solid rgba(255,120,60,0.12);
+  }
+  .logo{
+    width:96px;height:96px;flex:0 0 96px;border-radius:18px;overflow:hidden;
+    display:flex;align-items:center;justify-content:center;
+    border:4px solid rgba(255,255,255,0.6);
+    background:linear-gradient(180deg,#fff,#ffefe8);
+  }
+  .logo img{width:100%;height:100%;object-fit:cover;display:block}
+  .title{
+    display:flex;flex-direction:column;
+  }
+  .title h1{font-family:'Playfair Display',serif;margin:0;font-size:28px;color:#3a1e13}
+  .title p{margin:6px 0 0;font-size:14px;color:var(--muted)}
+  .cta-row{margin-left:auto;display:flex;gap:10px;align-items:center}
+  .cta{background:linear-gradient(90deg,var(--accent),var(--accent-2));color:#fff;padding:10px 16px;border-radius:12px;text-decoration:none;font-weight:700;box-shadow:0 6px 18px rgba(255,120,60,0.18);display:inline-flex;gap:10px;align-items:center}
+  .cta.secondary{background:#fff;border-radius:12px;padding:10px 14px;color:#3a1e13;font-weight:700;text-decoration:none;box-shadow:0 4px 12px rgba(0,0,0,0.06)}
+  main{margin-top:22px;display:grid;grid-template-columns:1fr 360px;gap:20px}
+  @media(max-width:880px){main{grid-template-columns:1fr} .cta-row{margin-left:0}}
+  /* left column */
+  .card{
+    background:linear-gradient(180deg,#fffefb,#fff8f4);
+    border-radius:var(--radius);
+    padding:18px;
+    border:1px solid rgba(0,0,0,0.04);
+    box-shadow:0 12px 30px rgba(0,0,0,0.25);
+  }
+  .lead{font-size:18px;margin:0 0 8px;color:#3a1e13;font-weight:700}
+  .sub{color:var(--muted);margin:0 0 14px}
+  .features{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:14px}
+  .feature{background:linear-gradient(180deg,#fff,#fff6f2);padding:10px 12px;border-radius:12px;border:1px solid rgba(255,120,60,0.06);font-weight:600;color:#4a2b1f}
+  /* goals */
+  .goals{display:flex;gap:8px;flex-wrap:wrap;margin:16px 0}
+  .goal{display:flex;align-items:center;gap:8px;padding:8px 10px;background:#fff5ee;border-radius:12px;border:1px solid rgba(200,120,100,0.06)}
+  .goal .dot{width:12px;height:12px;border-radius:50%;background:var(--accent);box-shadow:0 2px 6px rgba(255,120,60,0.28)}
+  /* glossary */
+  .gloss{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-top:12px}
+  .term{background:#fff9f7;padding:8px;border-radius:10px;border:1px solid rgba(0,0,0,0.03);display:flex;gap:8px;align-items:center}
+  .term .emoji{font-size:18px}
+  .admins{margin-top:14px}
+  .admin{display:flex;gap:10px;align-items:center;padding:8px;border-radius:10px;background:#fff8f6;border:1px solid rgba(0,0,0,0.03);margin-bottom:8px}
+  .admin img{width:40px;height:40px;border-radius:10px;object-fit:cover}
+  .admin .who{font-weight:700}
+  /* right column */
+  aside{
+    position:sticky;top:28px;
+  }
+  .panel{background:linear-gradient(180deg,#fffcfb,#fff2ea);padding:16px;border-radius:14px;border:1px solid rgba(0,0,0,0.04)}
+  .big-join{display:flex;flex-direction:column;gap:12px;align-items:center;text-align:center}
+  .big-join .big-btn{background:linear-gradient(90deg,var(--accent),var(--accent-2));color:white;padding:14px 18px;border-radius:14px;text-decoration:none;font-weight:800;display:inline-flex;gap:10px;align-items:center;box-shadow:0 10px 30px rgba(255,120,60,0.2)}
+  .stats{display:flex;gap:10px;justify-content:center;margin-top:8px}
+  .stat{background:#fff9f5;padding:8px 12px;border-radius:10px;font-weight:700;color:#4a2b1f}
+  /* animations */
+  .fade-in{opacity:0;transform:translateY(12px);animation:fadeIn 700ms forwards}
+  @keyframes fadeIn{to{opacity:1;transform:none}}
+  /* small */
+  footer{margin-top:18px;text-align:center;color:#efe3df;font-weight:600}
+  a.small{color:var(--accent);text-decoration:none}
+  /* responsive tweaks */
+  @media (max-width:520px){
+    .logo{width:78px;height:78px}
+    .title h1{font-size:20px}
+    .admin img{width:34px;height:34px}
+    .gloss{grid-template-columns:1fr}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="logo"><img src="zdjecie.jpg" ></div>
+    <div class="title">
+      <h1>🧡 Memeland.PL 🧡</h1>
+      <p class="sub">Najlepszy kanał z memami w Polsce — dołącz, lajkuj, baw się!</p>
+    </div>
+
+    <div class="cta-row" style="margin-left:auto">
+      <a class="cta" href="https://whatsapp.com/channel/0029Vb5mf1ZCMY0CTR3Zcu0v" target="_blank" rel="noopener">
+        ➕ DOŁĄCZ
+      </a>
+      <a class="cta secondary" href="#wspolpraca">Współpraca</a>
+    </div>
+  </header>
+
+  <main>
+    <div>
+      <section class="card fade-in" style="animation-delay:0ms">
+        <p class="lead">Witamy na kanale <strong>🧡Memeland🧡</strong></p>
+        <p class="sub">To jest najlepszy kanał z memami w Polsce — zostaw obserwację i sprawdź, dlaczego warto zostać z nami!</p>
+
+        <div class="features">
+          <div class="feature">😁 Duża aktywność</div>
+          <div class="feature">💝 Mili admini</div>
+          <div class="feature">💯 Dużo ankiet</div>
+          <div class="feature">🤟 Setki memów</div>
+          <div class="feature">🔥 Pzp / Ozo / Współprace</div>
+        </div>
+
+        <div class="card" style="background:#fffaf8;margin-top:12px">
+          <strong style="color:#3a1e13">Dlaczego warto zostać?</strong>
+          <ul style="margin:8px 0 0 18px;color:#5b4545;line-height:1.5">
+            <li>Duża aktywność — zawsze coś się dzieje</li>
+            <li>Miła społeczność i admini</li>
+            <li>Regularne ankiety i memy non-stop</li>
+            <li>Łatwe współprace — sprawdź sekcję Współpraca</li>
+          </ul>
+        </div>
+
+        <div class="goals" aria-hidden>
+          <!-- progress style hearts, we'll animate current -->
+          <div class="goal"><div class="dot"></div> Cel: <strong style="margin-left:6px">1000 ❤️</strong></div>
+          <div class="goal"><div class="dot" style="background:#ffd24d"></div> Pzp: <strong style="margin-left:6px">od 200</strong></div>
+        </div>
+
+        <div style="margin-top:14px">
+          <h3 style="margin:0 0 8px;font-size:16px;color:#6b4236">Słowniczek kanałowy</h3>
+          <div class="gloss">
+            <div class="term"><div class="emoji">👍</div> tak/ok</div>
+            <div class="term"><div class="emoji">👎</div> nie</div>
+            <div class="term"><div class="emoji">🤌</div> Rel / dosłownie</div>
+            <div class="term"><div class="emoji">🤷</div> nwm</div>
+            <div class="term"><div class="emoji">🥲</div> smutne</div>
+            <div class="term"><div class="emoji">☢️</div> jesteś zajebisty/a</div>
+            <div class="term"><div class="emoji">❤️</div> kocham to</div>
+            <div class="term"><div class="emoji">🤯</div> wow</div>
+          </div>
+        </div>
+
+        <div class="admins" style="margin-top:12px">
+          <h3 style="margin:8px 0 10px;color:#6b4236">Admini / Kontakt</h3>
+          <div class="admin"><img src="zdjecie.jpg" alt=""><div>
+            <div class="who">~✨gwiaździsta noc✨</div>
+            <div style="font-size:13px;color:#6d5656"></div>
+          </div></div>
+
+          <div class="admin"><img src="zdjecie.jpg" alt=""><div>
+            <div class="who">~Milerek🥷🏿ッ</div>
+            <div style="font-size:13px;color:#6d5656"></div>
+          </div></div>
+
+          <div class="admin"><img src="zdjecie.jpg" alt=""><div>
+            <div class="who">~LilMik</div>
+            <div style="font-size:13px;color:#6d5656"></div>
+          </div></div>
+
+          <div class="admin"><img src="zdjecie.jpg" alt=""><div>
+            <div class="who">~ młody skibidi</div>
+            <div style="font-size:13px;color:#6d5656"></div>
+          </div></div>
+
+          <div class="admin"><img src="zdjecie.jpg" alt=""><div>
+            <div class="who">~to № ja</div>
+            <div style="font-size:13px;color:#6d5656"></div>
+          </div></div>
+
+          <div class="admin"><img src="zdjecie.jpg" alt=""><div>
+            <div class="who">~ 🦋</div>
+            <div style="font-size:13px;color:#6d5656"></div>
+          </div></div>
+        </div>
+
+      </section>
+
+      <section id="wspolpraca" class="card fade-in" style="animation-delay:120ms">
+        <h2>Współprace & Pzp</h2>
+        <p style="color:#5b4545">
+          Współprace od <strong>350 obs</strong> 🤝🤟🔥 — Pzp od <strong>200</strong> 🤝🤟🔥<br>
+          Ozo robi ~🍁 — piszcie z Ozo do niego, nie do innych.
+        </p>
+
+        <div style="margin-top:12px" class="link-list">
+          <a class="btn" href="https://whatsapp.com/channel/0029VaSOXD98KMqotKMbGI2z" target="_blank" rel="noopener"></a>
+         
+        </div>
+
+        <a class="whatsapp-link" href="https://whatsapp.com/channel/0029VaSOXD98KMqotKMbGI2z" target="_blank" rel="noopener">
+          <img src="/mnt/data/zdjecie.jpg" alt="Grupa">
+         Memy i uwagi 🎀
+        </a>
+
+        <div style="margin-top:14px;color:#5b4545">
+          <h4 style="margin:10px 0 6px">Jak zgłosić Pzp / Współpracę:</h4>
+          <ol style="margin:0 0 8px 18px;color:#5b4545;line-height:1.5">
+            <li>Wyślij wiadomość do nas (kontakt w adminach).</li>
+            <li>Opisz, co chcesz (format, czas trwania).</li>
+            <li>I może ci sie uda!</li>
+          </ol>
+        </div>
+      </section>
+
+    </div>
+
+    <aside>
+      <div class="panel fade-in" style="animation-delay:60ms">
+        <div class="big-join">
+          <div style="font-weight:800;color:#6a3529">Zostań z nami — memy non-stop</div>
+          <a class="big-btn" href="https://www.whatsapp.com/channel/0029Vb5mf1ZCMY0CTR3Zcu0v" target="_blank" rel="noopener">
+            🔗 Dołącz kanał
+          </a>
+          <div class="stats">
+            <div class="stat">Obserw: <span id="obsCount">30</span></div>
+            <div class="stat">Celem: 1000</div>
+          </div>
+        </div>
+
+        <div style="margin-top:14px;font-size:14px;color:#5b4545">
+          <strong>Krótko:</strong>
+          <p style="margin:8px 0 0">- Co ci mordeczko szkodzi? 😆<br>- Dużo memów, dobry klimat, ankiety!</p>
+        </div>
+      </div>
+    </aside>
+  </main>
+
+  <footer>
+    © 2025 Memeland.PL — Strona stworzona przez Takuba5 Web & More
+  </footer>
+</div>
+
+<script>
+  // loader
+  window.addEventListener('load', ()=> {
+    document.querySelectorAll('.fade-in').forEach((el,i)=>el.style.animationDelay=(i*80)+'ms');
+    // faux obs count animation
+    let el = document.getElementById('obsCount');
+    let val = 30;
+    const inc = setInterval(()=> {
+      val++; el.textContent = val;
+      if(val>=501){ clearInterval(inc); el.textContent = val; }
+    },70);
+    // remove loader if any (user hosting)
+    const loader = document.getElementById && document.getElementById('loader');
+    if(loader) loader.style.display='none';
+  });
+
+  // smooth scrolling for anchor links
+  function scrollToSection(id){
+    const el = document.getElementById(id);
+    if(!el) return;
+    el.scrollIntoView({behavior:'smooth',block:'start'});
+  }
+
+  // small confetti on join click (lightweight)
+  document.querySelectorAll('.big-btn, .cta').forEach(btn=>{
+    btn.addEventListener('click', (e)=>{
+      try {
+        // simple circle burst
+        for(let i=0;i<14;i++){
+          const c=document.createElement('span');
+          c.style.position='fixed';
+          c.style.left=(window.innerWidth/2 + (Math.random()-0.5)*200)+'px';
+          c.style.top=(window.innerHeight/3 + (Math.random()-0.5)*200)+'px';
+          c.style.width='8px'; c.style.height='8px'; c.style.borderRadius='50%';
+          c.style.background=['#ff7a2d','#ffd86b','#ffb199','#fff3e6'][Math.floor(Math.random()*4)];
+          c.style.opacity='0.95'; c.style.zIndex=9999;
+          c.style.transition='transform 900ms cubic-bezier(.17,.67,.35,1),opacity 900ms';
+          document.body.appendChild(c);
+          requestAnimationFrame(()=> c.style.transform = `translate(${(Math.random()-0.5)*300}px, ${(Math.random()-0.5)*500}px) scale(0.2)`, c.style.opacity='0');
+          setTimeout(()=> c.remove(),950);
+        }
+      } catch(e){/* skip on old browsers */}
+    });
+  });
+</script>
+</body>
+</html>
